@@ -10,17 +10,16 @@ AB has score A + B, where A and B are balanced parentheses strings.
 
 class Solution:
     def scoreOfParentheses(self, S: str) -> int:
-        stack = [0]
-
+        stack = []
+        curr = 0
         for ch in S:
             if ch == '(':
-                stack.append(0)
+                stack.append(curr)
+                curr = 0
             else:
-                last_val = stack.pop()
-                stack[-1] += max(2 * last_val, 1)
-
-        return stack.pop()
-
+                last = stack.pop()
+                curr += last + max(curr, 1)
+        return curr
 """
 Example 1:
 
